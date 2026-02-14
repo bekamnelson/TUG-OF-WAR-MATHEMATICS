@@ -233,113 +233,91 @@ body, html {
 @keyframes popIn {
     to { transform: scale(1); }
 }
+
 /* ============================================================
-   AJUSTEMENTS RESPONSIVE (Tablettes et Mobiles)
+   FIX TABLETTE ET PETITS ÉCRANS (Garde le design 3x3 intact)
    ============================================================ */
 
-/* 1. Correction pour Tablettes et écrans moyens */
-@media (max-width: 1100px) {
-    .game-content {
-        gap: 10px;
-        padding: 10px;
-    }
-    .math-card {
-        max-width: 280px; /* Réduction de la largeur pour laisser respirer l'arène */
-    }
-    .equation {
-        font-size: 2.2rem;
-    }
-    .chars-blue, .chars-red {
-        font-size: 3.5rem;
-    }
-    .rope {
-        width: 150px;
-    }
-}
-
-/* 2. Correction spécifique pour la HAUTEUR (Paysage / Mobile tourné) 
-   C'est ici qu'on règle le problème de la "ligne manquante" */
-@media (max-height: 700px) {
+@media (max-width: 1200px) or (max-height: 800px) {
+    
+    /* 1. On réduit le header pour laisser de la place au jeu */
     .main-header {
-        height: 45px;
-        padding: 0 15px;
-    }
-    
-    .status-dashboard {
-        margin-top: 5px;
-        padding: 5px 20px;
-        gap: 15px;
-        transform: scale(0.9);
+        height: 50px;
+        padding: 0 20px;
     }
 
-    .problem-zone {
-        padding: 10px 15px; /* On réduit l'espace interne */
-    }
-
-    .equation {
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-    }
-
-    .result-display {
-        padding: 6px;
-        font-size: 1.3rem;
-    }
-
-    .number-grid {
-        padding: 10px;
-        gap: 5px;
-    }
-
-    .number-grid button {
-        height: 45px; /* Boutons plus courts pour tout faire tenir */
-        font-size: 1.2rem;
-    }
-
-    .battle-ground {
-        transform: scale(0.8); /* On réduit l'arène pour libérer de la hauteur */
-    }
-}
-
-/* 3. Mode Portrait (Téléphone vertical) 
-   On empile les éléments pour éviter l'écrasement horizontal */
-@media (max-width: 768px) and (orientation: portrait) {
-    body, html {
-        overflow-y: auto; /* Autorise le scroll si vraiment nécessaire */
-    }
-    
     .game-content {
-        flex-direction: column;
-        height: auto;
+        padding: 10px;
+        gap: 15px;
+        height: calc(100vh - 50px); /* Hauteur totale moins le header */
+        align-items: stretch;
     }
 
+    /* 2. On ajuste les panneaux latéraux */
     .side-panel {
-        order: 2; /* Les calculs en bas */
-        width: 100%;
-    }
-
-    .center-arena {
-        order: 1; /* L'arène en haut */
-        width: 100%;
-        min-height: 200px;
-        flex: none;
+        flex: 1;
+        min-width: 0; /* Empêche le panneau de pousser les autres */
     }
 
     .math-card {
         max-width: 100%;
-        margin-bottom: 20px;
+        height: 100%; /* Force la carte à prendre toute la hauteur dispo */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 3. On compresse la zone de texte du haut */
+    .problem-zone {
+        padding: 10px;
+    }
+
+    .equation {
+        font-size: clamp(1.5rem, 4vh, 2.5rem); /* Taille fluide selon la hauteur */
+        margin-bottom: 5px;
+    }
+
+    .result-display {
+        padding: 8px;
+        font-size: 1.2rem;
+    }
+
+    /* 4. LA GRILLE : Reste en 3 colonnes mais s'adapte en hauteur */
+    .number-grid {
+        flex: 1; /* Elle occupe tout l'espace restant dans la carte */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* GARDE LE 3x3 */
+        gap: 8px;
+        padding: 15px;
+    }
+
+    .number-grid button {
+        height: 100%; /* Les boutons s'étirent pour remplir la hauteur dispo */
+        min-height: 40px; 
+        font-size: 1.2rem;
+    }
+
+    /* 5. L'ARÈNE CENTRALE : On réduit l'échelle pour éviter le chevauchement */
+    .center-arena {
+        flex: 1.2;
+        min-width: 0;
+    }
+
+    .status-dashboard {
+        margin-top: 10px;
+        padding: 5px 20px;
+        transform: scale(0.85); /* Réduit légèrement le bandeau des scores */
+    }
+
+    .battle-ground {
+        transform: scale(0.75); /* Réduit l'animation pour qu'elle ne touche pas les cartes */
+        width: 100%;
     }
 }
 
-/* 4. Cas extrême : Très petits écrans en paysage */
-@media (max-height: 450px) {
-    .main-header { display: none; } /* On cache le titre pour gagner de la place */
-    
-    .number-grid {
-        grid-template-columns: repeat(6, 1fr); /* On met les chiffres sur 2 lignes au lieu de 4 */
-    }
-    
-    .battle-ground {
-        transform: scale(0.6);
-    }
+/* Cas particulier : Écrans très courts (Téléphones en paysage) */
+@media (max-height: 500px) {
+    .main-header { display: none; } /* On gagne 50px en cachant le titre */
+    .game-content { height: 100vh; }
+    .equation { font-size: 1.5rem; }
+    .number-grid { padding: 5px; gap: 4px; }
 }
