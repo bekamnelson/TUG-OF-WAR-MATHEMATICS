@@ -1,0 +1,233 @@
+:root {
+    --blue-clr: #3498db;
+    --red-clr: #e74c3c;
+    --glass: rgba(255, 255, 255, 0.85);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+
+/* --- ARRIÈRE-PLAN DIVISÉ ET FLOU --- */
+.split-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: -1;
+    filter: blur(60px); /* L'effet de flou demandé */
+    opacity: 0.4;       /* Pour ne pas fatiguer les yeux */
+}
+.bg-half { flex: 1; }
+.blue-bg { background-color: var(--blue-clr); }
+.red-bg { background-color: var(--red-clr); }
+
+/* --- LAYOUT --- */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-header {
+    background: white;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.game-content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* --- CARTES DE JEU --- */
+.side-panel { flex: 1; display: flex; justify-content: center; align-items: center; }
+
+.math-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    width: 340px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-head { color: white; padding: 15px 25px; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; }
+.card-head.blue { background: var(--blue-clr); }
+.card-head.red { background: var(--red-clr); }
+.score-pill { background: rgba(0,0,0,0.2); padding: 2px 15px; border-radius: 20px; }
+
+.problem-zone { padding: 25px; text-align: center; }
+.equation { font-size: 2.8rem; font-weight: 800; color: #2c3e50; margin-bottom: 10px; }
+.result-display { background: #f1f3f5; padding: 12px; border-radius: 15px; font-size: 1.6rem; color: #95a5a6; border: 1px solid #ddd; }
+
+.number-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 20px; background: rgba(255,255,255,0.5); }
+.number-grid button {
+    height: 65px; border-radius: 15px; border: 1px solid #eee; background: white;
+    font-size: 1.5rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+}
+.number-grid button:active { transform: scale(0.9); background: #f0f0f0; }
+.key-clear { color: var(--red-clr); }
+.key-confirm { color: #27ae60; }
+
+/* --- ARENE CENTRALE --- */
+.center-arena {
+    flex: 1.5;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid white;
+}
+
+.status-dashboard {
+    margin-top: 25px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 12px 40px;
+    border-radius: 20px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+.team-info { text-align: center; display: flex; flex-direction: column; }
+.team-info span { font-size: 0.75rem; text-transform: uppercase; color: #666; }
+.team-info strong { font-size: 1.4rem; }
+.timer { font-weight: bold; font-size: 1.2rem; background: #333; color: white; padding: 5px 15px; border-radius: 8px; }
+
+/* ANIMATION KEYFRAMES */
+.battle-ground { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+.tug-animation-group {
+    display: flex;
+    align-items: center;
+    animation: struggle 2.5s ease-in-out infinite;
+}
+.rope { width: 220px; height: 8px; background: #7e5233; position: relative; border-radius: 4px; }
+.center-ribbon { width: 5px; height: 18px; background: #e74c3c; position: absolute; left: 50%; top: -5px; }
+.chars-blue, .chars-red { font-size: 4.5rem; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+
+.floor-guide { width: 70%; border-top: 3px dashed #cbd5e0; margin-top: -15px; }
+
+@keyframes struggle {
+    0%, 100% { transform: translateX(0); }
+    30% { transform: translateX(-35px); } /* L'équipe bleue domine */
+    70% { transform: translateX(35px); }  /* L'équipe rouge domine */
+}
+/* Animation Illumination VERTE (Réussite) */
+.success-flash {
+    animation: glow-green 1s ease-out;
+    border: 2px solid #2ecc71 !important;
+}
+
+@keyframes glow-green {
+    0% { box-shadow: 0 0 0px rgba(46, 204, 113, 0); }
+    50% { box-shadow: 0 0 30px rgba(46, 204, 113, 1); }
+    100% { box-shadow: 0 0 0px rgba(46, 204, 113, 0); }
+}
+
+/* Animation Illumination ROUGE + Secousse (Erreur) */
+.error-flash {
+    animation: glow-red 0.5s ease-in-out;
+    border: 2px solid #e74c3c !important;
+}
+
+@keyframes glow-red {
+    0% { transform: translateX(0); box-shadow: 0 0 0px rgba(231, 76, 60, 0); }
+    20% { transform: translateX(-10px); box-shadow: 0 0 30px rgba(231, 76, 60, 1); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); box-shadow: 0 0 0px rgba(231, 76, 60, 0); }
+}
+/* Overlay de fin de jeu */
+.end-game-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.result-card {
+    background: white;
+    padding: 40px 60px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    transform: scale(0.8);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Couleurs selon le gagnant */
+.win-blue h1 { color: #3498db; }
+.win-red h1 { color: #e74c3c; }
+.win-draw h1 { color: #2c3e50; }
+
+.final-scores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.score-item { display: flex; flex-direction: column; }
+.score-item span { font-size: 1rem; color: #666; text-transform: uppercase; }
+.score-item strong { font-size: 3.5rem; color: #333; }
+.score-separator { font-size: 3rem; font-weight: bold; color: #ccc; }
+
+.retry-btn {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #1e8449;
+    margin-bottom: 15px;
+    display: block;
+    width: 100%;
+}
+
+.retry-btn:active { transform: translateY(5px); box-shadow: 0 0 0; }
+
+.home-exit-btn {
+    background: none;
+    border: none;
+    color: #95a5a6;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    to { transform: scale(1); }
+}
