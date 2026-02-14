@@ -233,91 +233,85 @@ body, html {
 @keyframes popIn {
     to { transform: scale(1); }
 }
-
 /* ============================================================
-   FIX TABLETTE ET PETITS ÉCRANS (Garde le design 3x3 intact)
+   FIX POUR ÉCRANS TRÈS BAS (Hauteur < 350px)
    ============================================================ */
 
-@media (max-width: 1200px) or (max-height: 800px) {
-    
-    /* 1. On réduit le header pour laisser de la place au jeu */
+@media (max-height: 350px) {
+    /* 1. On cache le header pour gagner de la place vitale */
     .main-header {
-        height: 50px;
-        padding: 0 20px;
+        display: none !important;
     }
 
+    /* 2. On réduit les paddings du conteneur de jeu */
     .game-content {
-        padding: 10px;
-        gap: 15px;
-        height: calc(100vh - 50px); /* Hauteur totale moins le header */
-        align-items: stretch;
+        padding: 5px !important;
+        gap: 5px !important;
+        height: 100vh !important;
     }
 
-    /* 2. On ajuste les panneaux latéraux */
+    /* 3. Ajustement des cartes de calcul */
     .side-panel {
-        flex: 1;
-        min-width: 0; /* Empêche le panneau de pousser les autres */
+        align-items: stretch !important; /* Force la carte à prendre toute la hauteur */
     }
 
     .math-card {
-        max-width: 100%;
-        height: 100%; /* Force la carte à prendre toute la hauteur dispo */
-        display: flex;
-        flex-direction: column;
+        border-radius: 15px !important; /* Arrondis plus petits */
+        max-height: 100vh !important;
     }
 
-    /* 3. On compresse la zone de texte du haut */
+    /* 4. Compression de la zone équation */
+    .card-head {
+        padding: 5px 15px !important;
+        font-size: 0.9rem !important;
+    }
+
     .problem-zone {
-        padding: 10px;
+        padding: 5px !important;
     }
 
     .equation {
-        font-size: clamp(1.5rem, 4vh, 2.5rem); /* Taille fluide selon la hauteur */
-        margin-bottom: 5px;
+        font-size: 1.4rem !important; /* Réduction pour laisser de la place au pavé */
+        margin-bottom: 2px !important;
     }
 
     .result-display {
-        padding: 8px;
-        font-size: 1.2rem;
+        padding: 4px !important;
+        font-size: 1.1rem !important;
+        border-radius: 8px !important;
     }
 
-    /* 4. LA GRILLE : Reste en 3 colonnes mais s'adapte en hauteur */
+    /* 5. LE PAVÉ NUMÉRIQUE (Garde les 3 colonnes) */
     .number-grid {
-        flex: 1; /* Elle occupe tout l'espace restant dans la carte */
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* GARDE LE 3x3 */
-        gap: 8px;
-        padding: 15px;
+        padding: 5px !important;
+        gap: 4px !important;
+        flex: 1 !important; /* Prend tout l'espace restant */
     }
 
     .number-grid button {
-        height: 100%; /* Les boutons s'étirent pour remplir la hauteur dispo */
-        min-height: 40px; 
-        font-size: 1.2rem;
+        height: auto !important; /* Laisse le bouton s'adapter à la hauteur dispo */
+        min-height: 30px !important; 
+        font-size: 1rem !important;
+        border-radius: 8px !important;
     }
 
-    /* 5. L'ARÈNE CENTRALE : On réduit l'échelle pour éviter le chevauchement */
+    /* 6. L'ARÈNE CENTRALE */
     .center-arena {
-        flex: 1.2;
-        min-width: 0;
+        border-radius: 15px !important;
+        padding: 5px !important;
     }
 
     .status-dashboard {
-        margin-top: 10px;
-        padding: 5px 20px;
-        transform: scale(0.85); /* Réduit légèrement le bandeau des scores */
+        margin-top: 0 !important;
+        padding: 2px 10px !important;
+        transform: scale(0.7) !important; /* Miniature */
     }
 
     .battle-ground {
-        transform: scale(0.75); /* Réduit l'animation pour qu'elle ne touche pas les cartes */
-        width: 100%;
+        transform: scale(0.55) !important; /* Réduit l'animation pour tenir entre les cartes */
     }
-}
 
-/* Cas particulier : Écrans très courts (Téléphones en paysage) */
-@media (max-height: 500px) {
-    .main-header { display: none; } /* On gagne 50px en cachant le titre */
-    .game-content { height: 100vh; }
-    .equation { font-size: 1.5rem; }
-    .number-grid { padding: 5px; gap: 4px; }
+    .floor-guide {
+        display: none !important; /* Supprime la ligne de sol pour gagner de la place */
+    }
 }
