@@ -258,7 +258,7 @@ body, html {
 
     .math-card {
         border-radius: 15px !important; /* Arrondis plus petits */
-        max-height: 100vh !important;
+       height: 97vh !important;
         border-radius: 15px;
     }
 
@@ -345,6 +345,7 @@ body, html {
         max-height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
+        height: 89vh;
         border-radius: 15px;
     }
 
