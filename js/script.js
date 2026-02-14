@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
             <button onclick="location.reload()" class="retry-btn">NOUVELLE PARTIE</button>
-            <button onclick="window.location.href='accueil.html'" class="home-exit-btn">Retour Accueil</button>
+            <button onclick="window.location.href='./../index.html'" class="home-exit-btn">Retour Accueil</button>
         </div>
     `;
 
@@ -182,4 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     generateQuestion('team1');
     generateQuestion('team2');
     updateScoresUI();
+});
+// Empêcher l'actualisation ou la fermeture accidentelle
+window.addEventListener('beforeunload', (event) => {
+    // On ne demande confirmation que si le jeu est en cours
+    if (gameState.gameActive && gameState.timer > 0) {
+        // Le message personnalisé n'est plus affiché par la plupart des navigateurs modernes 
+        // pour des raisons de sécurité, mais la boîte de dialogue standard apparaîtra.
+        event.preventDefault();
+        event.returnValue = ''; 
+    }
 });
