@@ -263,3 +263,42 @@ body, html {
         width: 90%; /* On élargit la ligne de sol pour l'esthétique */
     }
 }
+@media (orientation: landscape) and (max-height: 550px) {
+    .app-container {
+        height: 100vh;
+        overflow: hidden; /* Empêche le scroll vertical global */
+    }
+
+    .main-header {
+        height: 40px; /* Header miniature */
+        padding: 0 15px;
+    }
+
+    .game-content {
+        padding: 5px;
+        gap: 10px;
+        align-items: stretch; /* Force les colonnes à remplir la hauteur */
+    }
+}
+@media (orientation: landscape) and (max-height: 550px) {
+    .center-arena {
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .status-dashboard {
+        margin-top: 5px;
+        padding: 5px 15px;
+        transform: scale(0.8); /* On réduit le tableau des scores */
+    }
+
+    .battle-ground {
+        flex: 1; 
+        transform: scale(0.7); /* Réduit l'animation pour qu'elle tienne en hauteur */
+        margin: -20px 0; /* Compense l'espace vide du scale */
+    }
+    
+    .floor-guide {
+        display: none; /* On cache la ligne de sol pour gagner de la place */
+    }
+}
