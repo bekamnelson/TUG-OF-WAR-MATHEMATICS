@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration initiale ---
     const gameState = {
-        timer: 300, // 5 minutes en secondes (5 * 60)
+        timer: 180, // 5 minutes en secondes (5 * 60)
         team1: { score: 0, currentAnswer: "", correctAnswer: 0 },
         team2: { score: 0, currentAnswer: "", correctAnswer: 0 },
         gameActive: true
