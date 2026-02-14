@@ -183,13 +183,33 @@ document.addEventListener('DOMContentLoaded', () => {
     generateQuestion('team2');
     updateScoresUI();
 });
-// Empêcher l'actualisation ou la fermeture accidentelle
-window.addEventListener('beforeunload', (event) => {
-    // On ne demande confirmation que si le jeu est en cours
-    if (gameState.gameActive && gameState.timer > 0) {
-        // Le message personnalisé n'est plus affiché par la plupart des navigateurs modernes 
-        // pour des raisons de sécurité, mais la boîte de dialogue standard apparaîtra.
-        event.preventDefault();
-        event.returnValue = ''; 
+// On utilise une variable globale simple pour être sûr qu'elle soit vue
+let isGameRunning = true; 
+
+window.onbeforeunload = function (e) {
+    // Si la partie est en cours, on déclenche l'alerte
+    if (isGameRunning) {
+        e = e || window.event;
+
+        // Message pour les anciens navigateurs
+        const message = "Attention, la partie en cours sera perdue !";
+
+        // Pour Chrome / Firefox / Safari
+        if (e) {
+            e.returnValue = message;
+        }
+
+        // Pour les autres
+        return message;
+    }
+};
+
+// Bloquer aussi les raccourcis clavier F5 et Ctrl+R
+window.addEventListener('keydown', function (e) {
+    if ((e.which || e.keyCode) == 116 || (e.ctrlKey && (e.which || e.keyCode) == 82)) {
+        if (isGameRunning) {
+            e.preventDefault();
+            alert("Action bloquée : Utilisez le bouton Rejouer à la fin du temps !");
+        }
     }
 });

@@ -58,7 +58,8 @@ body, html {
 .math-card {
     background: var(--glass);
     backdrop-filter: blur(10px);
-    width: 340px;
+    width: 100%;           /* Prend toute la place dispo */
+    max-width: 340px;      /* Mais ne dépasse pas 340px */
     border-radius: 30px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -230,4 +231,35 @@ body, html {
 
 @keyframes popIn {
     to { transform: scale(1); }
+}
+/* --- ADAPTATION DE L'ARÈNE --- */
+
+@media (max-width: 1100px) {
+    .rope {
+        width: 150px; /* Corde plus courte sur tablette/petit écran */
+    }
+    .chars-blue, .chars-red {
+        font-size: 3.5rem; /* Personnages un peu plus petits */
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .center-arena {
+        background: transparent; /* On enlève le fond blanc pour épurer */
+        border: none;
+    }
+    
+    .status-dashboard {
+        transform: scale(0.7); /* On réduit le tableau des scores */
+        margin-top: 5px;
+        gap: 20px;
+    }
+
+    .tug-animation-group {
+        transform: scale(0.6); /* Réduction globale de l'animation de combat */
+    }
+
+    .floor-guide {
+        width: 90%; /* On élargit la ligne de sol pour l'esthétique */
+    }
 }
