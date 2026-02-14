@@ -233,6 +233,53 @@ body, html {
 @keyframes popIn {
     to { transform: scale(1); }
 }
+
+
+.duel-container {
+    width: 90%;
+    padding: 20px;
+}
+
+.duel-bar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    overflow: hidden; /* Pour que les segments ne dépassent pas des arrondis */
+    background: #eee;
+    position: relative;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.progress-segment {
+    height: 100%;
+    transition: width 0.5s ease-out; /* Animation fluide quand on gagne un point */
+}
+
+.blue-segment {
+    background: linear-gradient(90deg, #2980b9, #3498db);
+    width: 50%; /* Position de départ */
+}
+
+.red-segment {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    width: 50%; /* Position de départ */
+}
+
+.cursor {
+    position: absolute;
+    top: -5px;
+    left: 50%; /* Position de départ */
+    height: 50px;
+    width: 6px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    transition: left 0.5s ease-out;
+}
+
+
+
 /* ============================================================
    FIX POUR ÉCRANS TRÈS BAS (Hauteur < 350px)
    ============================================================ */

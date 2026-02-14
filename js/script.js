@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (parseInt(team.currentAnswer) === team.correctAnswer) {
         // --- CAS : BONNE RÉPONSE ---
         team.score++;
-        
+      
         // Ajoute l'illumination VERTE
         ui.card.classList.add('success-flash');
         setTimeout(() => ui.card.classList.remove('success-flash'), 1000);
@@ -101,12 +101,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Animation de la corde
-    function updateTugPosition() {
+   /* function updateTugPosition() {
         const diff = gameState.team1.score - gameState.team2.score;
         const moveStep = 15; // Pixels par point d'écart
         tugWrapper.style.transform = `translateX(${diff * moveStep}px)`;
+    }*/
+function updateTugPosition() {
+    // On calcule l'écart de points
+    const totalScore = gameState.team1.score + gameState.team2.score;
+    
+    // Si personne n'a marqué, on reste à 50%
+    let bluePercent = 50;
+    
+    if (totalScore > 0) {
+        // On calcule le pourcentage de terrain de l'équipe bleue
+        // Exemple : Bleue a 3 points, Rouge a 1 point. Total = 4.
+        // Bleue possède (3/4) * 100 = 75% de la barre.
+        bluePercent = (gameState.team1.score / totalScore) * 100;
     }
 
+    // On limite pour ne pas que la barre disparaisse totalement (facultatif)
+    if (bluePercent < 10) bluePercent = 10;
+    if (bluePercent > 90) bluePercent = 90;
+
+    // On applique les changements
+    document.getElementById('blue-progress').style.width = bluePercent + "%";
+    document.getElementById('red-progress').style.width = (100 - bluePercent) + "%";
+    document.getElementById('duel-cursor').style.left = bluePercent + "%";
+}
     // --- Gestion du Temps (5 minutes) ---
     const timerInterval = setInterval(() => {
         if (gameState.timer > 0) {
@@ -185,4 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // On utilise une variable globale simple pour être sûr qu'elle soit vue
 let isGameRunning = true; 
+
+
+
 
