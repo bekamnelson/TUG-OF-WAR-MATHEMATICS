@@ -237,7 +237,7 @@ body, html {
    FIX POUR ÉCRANS TRÈS BAS (Hauteur < 350px)
    ============================================================ */
 
-@media (max-height: 350px) {
+@media (max-height: 450px) {
     /* 1. On cache le header pour gagner de la place vitale */
     .main-header {
         display: none !important;
