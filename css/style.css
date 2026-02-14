@@ -236,8 +236,9 @@ body, html {
 /* ============================================================
    FIX POUR ÉCRANS TRÈS BAS (Hauteur < 350px)
    ============================================================ */
+   
 
-@media (max-height: 450px) {
+@media (max-height: 300px) {
     /* 1. On cache le header pour gagner de la place vitale */
     .main-header {
         display: none !important;
@@ -313,5 +314,88 @@ body, html {
 
     .floor-guide {
         display: none !important; /* Supprime la ligne de sol pour gagner de la place */
+    }
+}
+/* ============================================================
+   FIX INTERMÉDIAIRE (Hauteur entre 350px et 500px)
+   ============================================================ */
+
+@media (min-height: 300px) and (max-height: 500px) {
+    
+    /* 1. Réduction drastique du Header */
+    .main-header {
+        height: 35px !important;
+        padding: 0 15px !important;
+    }
+    
+    .main-header h1 {
+        font-size: 1rem !important;
+    }
+
+    /* 2. Ajustement du conteneur de jeu */
+    .game-content {
+        padding: 8px !important;
+        gap: 8px !important;
+        height: calc(100vh - 35px) !important;
+    }
+
+    /* 3. Cartes de calcul compactes */
+    .math-card {
+        max-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .card-head {
+        padding: 4px 12px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* 4. Zone équation ultra-serrée */
+    .problem-zone {
+        padding: 8px !important;
+    }
+
+    .equation {
+        font-size: 1.6rem !important;
+        margin-bottom: 2px !important;
+    }
+
+    .result-display {
+        padding: 5px !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* 5. Pavé numérique (On maintient le 3 colonnes) */
+    .number-grid {
+        padding: 8px !important;
+        gap: 4px !important;
+        flex: 1 !important; /* Force la grille à occuper l'espace restant */
+    }
+
+    .number-grid button {
+        height: auto !important; /* S'adapte à la hauteur disponible */
+        font-size: 1.1rem !important;
+        border-radius: 10px !important;
+    }
+
+    /* 6. Arène centrale */
+    .status-dashboard {
+        margin-top: 2px !important;
+        padding: 4px 15px !important;
+        transform: scale(0.8) !important;
+    }
+
+    .battle-ground {
+        transform: scale(0.65) !important; /* Évite le chevauchement latéral */
+    }
+    
+    .chars-blue, .chars-red {
+        font-size: 3rem !important;
+    }
+
+    .rope {
+        width: 140px !important;
     }
 }
